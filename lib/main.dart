@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: const MyHomePage(title: 'Flutter Home Page'),
+      home: const MyHomePage(title: 'Zaiko'),
     );
   }
 }
@@ -43,16 +43,15 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have clicked the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+        child: GridView.count(
+          crossAxisCount: 3,
+          childAspectRatio: 0.7,
+          padding: const EdgeInsets.all(2),
+          children: [
+                Cards(
+                title: '1',
+                id: '2',
+                image: '3')
           ],
         ),
       ),
@@ -60,6 +59,61 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class Cards extends StatefulWidget {
+  const Cards({super.key, required this.title, required this.id, required this.image});
+  final String title;
+  final String id;
+  final String image;
+
+  @override
+  State<Cards> createState() => _CardsState();
+}
+
+class _CardsState extends State<Cards> {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 50,
+      shadowColor: Colors.black,
+      child: SizedBox(
+        width:  MediaQuery.of(context).size.width,
+        height:  MediaQuery.of(context).size.height,
+        child: Padding(
+          padding: const EdgeInsets.all(0),
+          child: Stack(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                child: Image.network(
+                  'https://cdn.pixabay.com/photo/2018/07/11/21/51/toast-3532016_1280.jpg',
+                  height: 250,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                      'GeeksforGeeks',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
